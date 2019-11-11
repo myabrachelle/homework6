@@ -14,13 +14,14 @@
 </style>
 
 <script>
-	console.log(document.getElementById("myCanvas").width)
-	document.getElementById("myCanvas").width = (screen.width*0.8);
+
+	var canvas = document.getElementById('myCanvas');
+	canvas.width = screen.innerWidth;
 	//document.getElementById("myCanvas").style.height = "80%";
 	
 	
 	var mouseDown = 0;
-	var canvas = document.getElementById('myCanvas');
+	
 	// var cv = canvas.getContext('2d')
 	// var red = canvas.color(255,0,0);
 	var x_coor = 0;
