@@ -18,12 +18,12 @@
     <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
     <input type = "color" id = "picker"/>
 </body>
+
 <script>
-	
 	canvas = document.getElementById('myCanvas');
 	cv = canvas.getContext('2d');
 	
-	var drawing = true;
+	var drawingOnCanvas = true;
 		
 	canvas.width = (window.innerWidth*0.8);
 	canvas.height = (window.innerHeight*0.8);
@@ -31,6 +31,7 @@
 
 	// creates the cursor and draws on the canvas
 	window.addEventListener('mousemove', function getCursor(e) {
+		if (!drawingOnCanvas) return;
 		cv.beginPath();
 		cv.arc(e.x, e.y, 10, 0, 2*Math.PI);
 		cv.closePath();
@@ -38,9 +39,9 @@
 	});
 
 
-	// changes the color of the cursor
+	// uses key commands to determine color, whether to start/ stop drawing and clear the canvas
 	window.addEventListener('keydown', function changeColor(k){
-		// console.log(k);
+		
 		if (k.key == "r"){
 			cv.beginPath();
 			cv.fillStyle = "red";
@@ -68,33 +69,18 @@
 			cv.closePath();
 			cv.fill();
 		}
-	});
 
-	// clears canvas 
-	window.addEventListener('keydown', function clearCanvas(s){
-		if (s.code == 'Space'){
+		if(k.key == "ArrowUp"){
+			drawingOnCanvas = false;
+		}
+
+		if(k.key == "ArrowDown"){
+			drawingOnCanvas = true;
+		}
+
+		if (k.code == 'Space'){
 			cv.clearRect(0, 0, canvas.width, canvas.height);
 		}
-
-	});
-
-	// FIX THIS CODE - should lift pen when pressing up arrow and draws again once hitting down arrow
-	window.addEventListener('keydown', function movePen(arrow){
-		
-		
-		if(arrow.key == "ArrowUp"){
-			drawing = false;
-			
-			cv.clearRect()
-			console.log(drawing);
-		}
-
-		if(arrow.key == "ArrowDown"){
-			drawing = true;
-			console.log(drawing);
-
-		}
-
 	});
 
 	picker.addEventListener('change', function colorChanger(){
@@ -104,12 +90,6 @@
 		cv.closePath();
 		cv.fill();
 	});
-
-	
-
-
-	//use moveTo() for moving pen up and down without dravwing on canvas 
-
 
 	</script>
 </html>
