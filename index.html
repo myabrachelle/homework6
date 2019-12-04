@@ -38,6 +38,11 @@
 		cv.fill();
 	});
 
+	// to center the cursor, you need to divide the radius in half 
+	window.addEventListener('mousemove', function(e){
+		getCursor(e.x, e.y);
+	})
+
 
 	// uses key commands to determine color, whether to start/ stop drawing and clear the canvas
 	window.addEventListener('keydown', function changeColor(k){
