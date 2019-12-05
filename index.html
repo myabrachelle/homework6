@@ -24,24 +24,31 @@
 	cv = canvas.getContext('2d');
 	
 	var drawingOnCanvas = true;
+	let x = 0;
+	let y = 0;
+	var rect = canvas.getBoundingClientRect();
 		
 	canvas.width = (window.innerWidth*0.8);
 	canvas.height = (window.innerHeight*0.8);
 
 
+	// to center the mouse around created cursor (in below function)  
+	myCanvas.addEventListener('mousemove', function(e){
+		x = e.clientX - rect.left;
+		y = e.clientY - rect.top;
+		getCursor(x, y);
+	})
+
 	// creates the cursor and draws on the canvas
-	window.addEventListener('mousemove', function getCursor(e) {
+	window.addEventListener('mousemove', function getCursor() {
 		if (!drawingOnCanvas) return;
 		cv.beginPath();
-		cv.arc(e.x, e.y, 10, 0, 2*Math.PI);
+		cv.arc(x, y, 10, 0, 2*Math.PI);
 		cv.closePath();
 		cv.fill();
 	});
 
-	// to center the cursor, you need to divide the radius in half 
-	window.addEventListener('mousemove', function(e){
-		getCursor(e.x, e.y);
-	})
+	
 
 
 	// uses key commands to determine color, whether to start/ stop drawing and clear the canvas
